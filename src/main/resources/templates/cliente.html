@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Oferta Educativa y Admisiones</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script src="/js/cliente.js"></script>
+        <style>
+            .logo {
+                width: 120px;
+                height: auto;
+            }
+
+            /* Estilos adicionales para mejorar la apariencia */
+            body {
+                background-color: #f8f9fa;
+            }
+
+            .container {
+                background-color: #ffffff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            #oferta-educativa {
+                margin-top: 30px;
+            }
+
+            #carouselExampleIndicators {
+                margin-top: 20px;
+            }
+            /* Estilos adicionales para la tabla */
+            #tbl-admi {
+                margin-top: 20px;
+            }
+
+            #tbl-admi th {
+                text-align: center;
+            }
+
+            #tbl-admi tbody tr:hover {
+                background-color: #f2f2f2;
+            }
+
+        </style>
+    </head>
+    <body onload="entrar()">
+        <nav data-th-fragment="encabezado" class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <img src ="/img/Logo_UTEQ.png" width="120px" height="50px" />
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a th:class="${styleInicio}" aria-current="page" href="index.html" data-th-href="@{/}">Inicio</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Buscar</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- Contenido principal -->
+        <div class="container mt-4">
+            <!-- Sección de Admisiones -->
+            <section id="admisiones">
+                <h2>Admisiones</h2>
+                <!-- Tabla de Admisiones -->
+                <table id="tbl-admi" class="table table-hover table-responsive">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Admisiones Disponibles</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <!-- Los datos de admisiones se llenarán dinámicamente con JavaScript -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Sección de Oferta Educativa -->
+            <section id="oferta-educativa">
+                <h2>Oferta Educativa</h2>
+
+                <!-- Carrusel de imágenes con URLs -->
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://www.uteq.edu.mx/Images/main-carousel/Banner_NvoIng_UTEQ___veda.png" class="d-block w-100" alt="Carrera 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://www.uteq.edu.mx/Images/main-carousel/Banner_NvoIng_COLON___veda.png" class="d-block w-100" alt="Carrera 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://www.uteq.edu.mx/Images/main-carousel/Banner_CIEBC.png" class="d-block w-100" alt="Carrera 3">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Siguiente</span>
+                    </button>
+                </div>
+
+
+                <!-- Tabla de Oferta Educativa -->
+                <table id="table" class="table table-hover table-responsive">
+                    <thead>
+                        <tr class="table-primary">
+                            <th>Carreras</th>
+                            <th>Ocupaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="body" class="table-group-divider">
+                        <!-- Aquí se agregarán dinámicamente las filas -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </body>
+</html>

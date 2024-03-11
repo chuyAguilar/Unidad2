@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <title>Modificar Oferta</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="/js/ofertaeducativa.js"></script>
+
+    </head>
+    <body>
+        <div data-th-replace="~{layout/layout :: encabezado}"></div>
+        <div class="container-fluid">
+            <h1 class="text-center">Editar oferta</h1>
+            <form action="/guardar-modificacion-oferta" method="post" th:action="@{/guardar-modificacion-oferta}" th:object="${oferta}">
+                <div>
+                    <label for="oferta">Oferta Educativa:</label>
+                    <input type="text" class="form-control" id="oferta" th:field="*{ofertaEducativa}" placeholder="TSU o continuidad">
+                    <span class="text-danger" data-th-if="${#fields.hasErrors('ofertaEducativa')}" data-th-errors="*{ofertaEducativa}">error usuario</span>
+                </div>
+                <div class="form-check mt-2">
+                    <input type="checkbox" class="form-check-input" th:field="*{activo}" id="activoCheckbox" />
+                    <label class="form-check-label" for="activoCheckbox">Activo</label>
+                </div>
+
+                <input type="hidden" th:field="*{id}" />
+
+                <div>
+                    <label for="oferta">Ocupacion profesional:</label>
+                    <input id="new-ocupa" class="form-control"/>
+                    <input type="button" class="btn btn-sm btn-primary" 
+                           value="Agregar" onclick="agregarRenglon()"/>
+                </div>
+                <table>
+                    <tbody id="tablaOcupa">
+                        <tr th:each="ocu, ocuStat : ${oferta.ocupaciones}" th:id="${'r' + ocuStat.index}">
+                            <td class="mb-8">
+                                <input name="ocupa"
+                                       id="${'ocupa_' + ocuStat.index}"
+                                       class="form-control"
+                                       th:value="${ocu.ocupacion}"
+                                       />
+                                <input type="hidden" name="idOc" 
+                                       th:value="${ocu.id}"
+                                       />
+                            </td>
+                            <td class="mb-4">
+                                <input th:id="${'btnBorrar_' + ocuStat.index}"
+                                       class="btn btn-sm btn-danger"
+                                       type="button"
+                                       value="Borrar"
+                                       onclick="borrarRenglon(this)"
+                                       />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button type="submit" class="btn btn-primary mt-2">Guardar Cambios</button>
+            </form>
+            <p></p>
+
+
+
+
+            <!-- Script para enviar el formulario -->
+            <script>
+                function borrarRenglon(evento) {
+                    target.document.getElementById('r' + evento.target.id).remove();
+                }
+                var buttons = document.querySelectorAll('.btn-danger')
+                for (var i = 0;
+                        i < buttons.length;
+                        i++
+                        ) {
+                    buttons[i].addEventListener('click', borrarRenglon);
+                }
+                var idxNew = 1000;
+
+                function agregarRenglon() {
+                    var dato = document.getElementById("new-ocupa").value;
+                    if (dato !== "") {
+                        const tabla = document.getElementById("tablaOcupa");
+                        idxNew++;
+                        var elemTr = document.createElement("tr");
+                        var elemTd1 = document.createElement("td");
+                        var elemTd2 = document.createElement("td");
+                        var newInput = document.createElement("input");
+                        var newInputH = document.createElement("input");
+                        var newButton = document.createElement("input");
+                        newInput.setAttribute("name", "ocupa");
+                        newInput.setAttribute("id", "ocupa[]");
+                        newInput.setAttribute("class", "form-control");
+                        newInput.setAttribute("value", document.getElementById("new-ocupa").value);
+                        newInputH.setAttribute("type", "hidden");
+                        newInputH.setAttribute("name", "idOc");
+                        newInputH.setAttribute("value", "0");
+                        elemTd1.setAttribute("class", "mb-8");
+                        elemTd2.setAttribute("class", "mb-4");
+                        elemTd1.appendChild(newInput);
+                        elemTd1.appendChild(newInputH);
+                        newButton.addEventListener('click', borrarRenglon);
+                        newButton.setAttribute("id", idxNew);
+                        newButton.setAttribute("class", "btn btn-sm btn-danger");
+                        newButton.setAttribute("type", "button");
+                        newButton.setAttribute("value", "Borrar");
+                        elemTd2.appendChild(newButton);
+                        elemTr.appendChild(elemTd1);
+                        elemTr.appendChild(elemTd2);
+                        elemTr.setAttribute("id", "r" + idxNew);
+                        tabla.appendChild(elemTr);
+                        console.log(elemTr);
+                        document.getElementById("new-ocupa").value = "";
+                    } else {
+                        alert("No hay datos para agregar");
+                    }
+                }
+
+
+            </script>
+
+
+        </div>
+    </body>
+</html>
