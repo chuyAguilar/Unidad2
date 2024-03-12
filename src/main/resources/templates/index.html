@@ -18,6 +18,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </style>
 </head>
 <body>
-    <nav data-th-replace="layout/layout :: encabezado" class="navbar navbar-expand-lg bg-body-tertiary"></nav>
+    
+    <nav data-th-replace="~{layout/layout :: encabezado}" class="navbar navbar-expand-lg bg-body-tertiary"></nav>
+    
+    <body>
+        <footer data-th-replace="layout/layout :: piepagina"></footer>
+    </body>
+
 </body>
 </html>
